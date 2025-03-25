@@ -75,4 +75,21 @@ setInterval(() => {
     gameArea.appendChild(target);
 
     const targetInterval = setInterval(() => {
-        target.style.top = (parseInt(target.style.top) +
+        target.style.top = (parseInt(target.style.top) + 2) + 'px';
+
+        if (parseInt(target.style.top) > gameArea.offsetHeight) {
+            clearInterval(targetInterval);
+            target.remove();
+        }
+
+        // Check for collision with player (optional)
+        if (isColliding(player, target)) {
+            alert('Game Over! Your score: ' + score);
+            clearInterval(targetInterval);
+            target.remove();
+            // Reset score or reload the game
+            score = 0;
+            scoreDisplay.innerText = 'Score: ' + score;
+        }
+    }, 100);
+}, 2000);
